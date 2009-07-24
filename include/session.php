@@ -127,6 +127,10 @@ class Session
 
       /* Username error checking */
       $field = "user";  //Use field name for username
+	  $q = "SELECT valid FROM ".TBL_USERS." WHERE username='$subuser'";
+	  $valid = $database->query($q);
+	  $valid = mysql_fetch_array($valid);
+	  	      
       if(!$subuser || strlen($subuser = trim($subuser)) == 0){
          $form->setError($field, "* Username not entered");
       }
@@ -135,7 +139,7 @@ class Session
          if(!eregi("^([0-9a-z])*$", $subuser)){
             $form->setError($field, "* Username not alphanumeric");
          }
-      }
+      }	  
 
       /* Password error checking */
       $field = "pass";  //Use field name for password
@@ -166,6 +170,20 @@ class Session
       if($form->num_errors > 0){
          return false;
       }
+
+      
+      if(EMAIL_WELCOME){
+      	if($valid['valid'] == 0){
+      		$form->setError($field, "* User's account has not yet been confirmed.");
+      	}
+      }
+                  
+      /* Return if form errors exist */
+      if($form->num_errors > 0){
+         return false;
+      }
+      
+
 
       /* Username and password correct, register session variables */
       $this->userinfo  = $database->getUserInfo($subuser);
@@ -311,16 +329,18 @@ class Session
          }
          $subemail = stripslashes($subemail);
       }
-
+      
+      $randid = $this->generateRandID();
+      
       /* Errors exist, have user correct them */
       if($form->num_errors > 0){
          return 1;  //Errors with form
       }
       /* No errors, add the new account to the */
       else{
-         if($database->addNewUser($subuser, md5($subpass), $subemail)){
-            if(EMAIL_WELCOME){
-               $mailer->sendWelcome($subuser,$subemail,$subpass);
+         if($database->addNewUser($subuser, md5($subpass), $subemail, $randid)){
+            if(EMAIL_WELCOME){               
+               $mailer->sendWelcome($subuser,$subemail,$subpass,$randid);
             }
             return 0;  //New user added succesfully
          }else{

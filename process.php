@@ -33,6 +33,9 @@ class Process
       else if(isset($_POST['subedit'])){
          $this->procEditAccount();
       }
+      else if(isset($_POST['subConfirm'])){
+      	$this->procSendConfirm();
+      }
       /**
        * The only other reason user should be directed here
        * is if he wants to logout, which means user is
@@ -191,6 +194,63 @@ class Process
          $_SESSION['error_array'] = $form->getErrorArray();
          header("Location: ".$session->referrer);
       }
+   }
+   
+   /**
+   	* procSendConfirm - only needs to be used if the administrator
+   	* changes the EMAIL_WELCOME from false to true and wants
+   	* the users to confirm themselves. (why not?!)
+   	*/
+   function procSendConfirm(){
+       global $session, $form, $database, $mailer;
+       
+       $user	=	$_POST['user'];
+       $pass	=	$_POST['pass'];
+       
+      /* Checks that username is in database and password is correct */
+      $user = stripslashes($user);
+      $result = $database->confirmUserPass($user, md5($pass));
+
+      /* Check error codes */
+      if($result == 1){
+         $field = "user";
+         $form->setError($field, "* Username not found");
+      }
+      elseif($result == 2){
+         $field = "pass";
+         $form->setError($field, "* Invalid password");
+      }
+      
+      /* Check to see if the user is already valid */
+      $q = "SELECT valid FROM ".TBL_USERS." WHERE username='$user'";
+      $valid = $database->query($q);
+      $valid = mysql_fetch_array($valid);
+      $valid = $valid['valid'];
+      
+      if($valid == 1){
+         $field = 'user';
+         $form->setError($field, "* Username already confirmed.");
+      }
+      
+      /* Return if form errors exist */
+      if($form->num_errors > 0){
+         $_SESSION['value_array'] = $_POST;
+         $_SESSION['error_array'] = $form->getErrorArray();
+         header("Location: ".$session->referrer);
+      }
+      else{
+	      $q = "SELECT username, userid, email FROM ".TBL_USERS." WHERE username='$user'";
+	      $info = $database->query($q) or die(mysql_error());
+	      $info = mysql_fetch_array($info);
+	      
+		      $username = $info['username'];
+		      $userid = $info['userid'];
+		      $email = $info['email'];
+	      
+	      if($mailer->sendConfirmation($username,$userid,$email)){
+	      	  echo "Your confirmation email has been sent! Back to <a href='main.php'>Main</a>";
+	      }
+	  }
    }
 };
 

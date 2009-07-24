@@ -33,8 +33,12 @@ else if(isset($_SESSION['regsuccess'])){
    /* Registration was successful */
    if($_SESSION['regsuccess']){
       echo "<h1>Registered!</h1>";
+      if(EMAIL_WELCOME){
+         echo "<p>Thankyou <b>".$_SESSION['reguname']."</b>, you have been sent a confirmation email which should be arriving shortly.  Please confirm your registration before you continue.<br />Back to <a href='main.php'>Main</a></p>";
+      }else{
       echo "<p>Thank you <b>".$_SESSION['reguname']."</b>, your information has been added to the database, "
           ."you may now <a href=\"main.php\">log in</a>.</p>";
+      }
    }
    /* Registration failed */
    else{

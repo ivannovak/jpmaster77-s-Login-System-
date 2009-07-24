@@ -62,6 +62,11 @@ if($form->num_errors > 0){
 <input type="submit" value="Login"></td></tr>
 <tr><td colspan="2" align="left"><br><font size="2">[<a href="forgotpass.php">Forgot Password?</a>]</font></td><td align="right"></td></tr>
 <tr><td colspan="2" align="left"><br>Not registered? <a href="register.php">Sign-Up!</a></td></tr>
+<?
+if(EMAIL_WELCOME){
+	echo "<tr><td colspan='2' align='left'><br>Do you need a Confirmation email? <a href='valid.php'>Send!</a></td></tr>";
+}
+?>
 </table>
 </form>
 
