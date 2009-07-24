@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * UserInfo.php
  *
@@ -15,7 +15,7 @@ include("include/session.php");
 <title>Jpmaster77's Login Script</title>
 <body>
 
-<?
+<?php
 /* Requested Username error checking */
 $req_user = trim($_GET['user']);
 if(!$req_user || strlen($req_user) == 0 ||

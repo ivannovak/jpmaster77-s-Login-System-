@@ -1,4 +1,4 @@
-<? 
+<?php 
 /**
  * Mailer.php
  *
