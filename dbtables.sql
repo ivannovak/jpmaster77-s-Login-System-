@@ -27,7 +27,8 @@ CREATE TABLE users (
  userid varchar(32),
  userlevel tinyint(1) unsigned not null,
  email varchar(50),
- timestamp int(11) unsigned not null
+ timestamp int(11) unsigned not null,
+ valid tinyint(1) unsigned not null default '0'
 );
 
 
