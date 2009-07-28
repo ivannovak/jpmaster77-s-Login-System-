@@ -1,3 +1,6 @@
+Readme.txt
+==========
+
 I wanted to do something good for the community by putting this up on GitHub.  The code is several years old, first published in 2004 by jpmaster77.  This code has been particularly useful to me and many others as referenced by the 44 pages of comments this script has now and is still receiving two or three comments per day (5 years later!).
 
 Hopefully people will view this as useful. My goal is to try to develop this free resource by updating the code and adding useful features.
@@ -10,8 +13,4 @@ Thanks,
 
 -Ivan
 
-Feature(s) added: 
-Email Account Activation: Tutorial written on the implimentation: http://www.ivannovak.com/email-account-activation.  Comments or suggestions? Ask away in the comments section of that tutorial.
-
-
-UPDATE: Replaced all short tags "<?" with "<?php".  The code should work fine with WAMP now.
+UPDATE: All further updates will be noted in changes.txt
