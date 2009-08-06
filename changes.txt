@@ -3,6 +3,24 @@ Changes.txt
 
 
 
+2.0.4
+	Big Additions:
+		A user to user internal mail system
+		A CSS folder, including the 960.gs framework
+
+	Lesser Additions:
+		An additional user level and author.php reflecting tutorial:
+		http://ivannovak.com/adding-protected-pages-to-jp77-system/
+
+		An additional input on register.php and all that entails.
+		Tutorials:
+		http://ivannovak.com/adding-to-jp77s-registration/
+		http://ivannovak.com/let-users-control-their-info/
+
+		Updated .sql file reflecting above changes
+
+
+
 2.0.3
 	Released jpmaster77's Login System under the a GNU/MIT Dual license.  See license.txt for details.
 

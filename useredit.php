@@ -1,4 +1,4 @@
-<?php 
+<?
 /**
  * UserEdit.php
  *
@@ -8,16 +8,24 @@
  * password, they must first confirm their current password.
  *
  * Written by: Jpmaster77 a.k.a. The Grandmaster of C++ (GMC)
- * Last Updated: August 26, 2004
+ * Last Updated: August 2, 2009 by Ivan Novak
  */
 include("include/session.php");
+$page = "useredit.php";
 ?>
 
 <html>
-<title>Jpmaster77's Login Script</title>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>Jpmaster77's Login Script</title>
+	<link rel="stylesheet" href="-css/960/reset.css" type="text/css" />
+	<link rel="stylesheet" href="-css/960/960.css" type="text/css" />
+	<link rel="stylesheet" href="-css/960/text.css" type="text/css" />	
+	<link rel="stylesheet" href="-css/style.css" type="text/css" />
+</head>
 <body>
-
-<?php 
+<div id="main" class="container_12">
+<?
 /**
  * User has submitted form without errors and user's
  * account has been edited successfully.
@@ -32,7 +40,7 @@ if(isset($_SESSION['useredit'])){
 else{
 ?>
 
-<?php 
+<?
 /**
  * If user is not logged in, then do not display anything.
  * If user is logged in, then display the form to edit
@@ -42,51 +50,48 @@ else{
 if($session->logged_in){
 ?>
 
-<h1>User Account Edit : <?php echo $session->username; ?></h1>
-<?php 
+<h1>User Account Edit : <? echo $session->username; ?></h1>
+<?
 if($form->num_errors > 0){
    echo "<td><font size=\"2\" color=\"#ff0000\">".$form->num_errors." error(s) found</font></td>";
 }
 ?>
-<form action="process.php" method="POST">
-<table align="left" border="0" cellspacing="0" cellpadding="3">
-<tr>
-<td>Current Password:</td>
-<td><input type="password" name="curpass" maxlength="30" value="
-<?php echo $form->value("curpass"); ?>"></td>
-<td><?php echo $form->error("curpass"); ?></td>
-</tr>
-<tr>
-<td>New Password:</td>
-<td><input type="password" name="newpass" maxlength="30" value="
-<?php echo $form->value("newpass"); ?>"></td>
-<td><?php echo $form->error("newpass"); ?></td>
-</tr>
-<tr>
-<td>Email:</td>
-<td><input type="text" name="email" maxlength="50" value="
-<?php 
-if($form->value("email") == ""){
-   echo $session->userinfo['email'];
-}else{
-   echo $form->value("email");
-}
-?>">
-</td>
-<td><?php echo $form->error("email"); ?></td>
-</tr>
-<tr><td colspan="2" align="right">
-<input type="hidden" name="subedit" value="1">
-<input type="submit" value="Edit Account"></td></tr>
-<tr><td colspan="2" align="left"></td></tr>
-</table>
-</form>
+<div id="userupdate">
+	<form action="process.php" method="POST">
+		<p class="grid_2">Name: </p><p class="left"><input class="left" type="text" name="name" maxlength="50" value="
+			<?
+			if($form->value("name") == ""){
+				echo $session->userinfo['name'];
+			}else{
+				echo $form->value("name");
+			}
+			?>"><? echo $form->error("name"); ?></p>
+		<div class="clear"></div>
+		<p class="grid_2">Current Password: </p><p class="left"><input type="password" name="curpass" maxlength="30" value="<?echo $form->value("curpass"); ?>"><? echo $form->error("curpass"); ?></p>
+		<div class="clear"></div>
+		<p class="grid_2">New Password: </p><p class="left"><input class="left" type="password" name="newpass" maxlength="30" value="<? echo $form->value("newpass"); ?>"><? echo $form->error("newpass"); ?></p>
+		<div class="clear"></div>
+		<p class="grid_2">Email: </p><p class="left"><input class="left" type="text" name="email" maxlength="50" value="
+			<?
+			if($form->value("email") == ""){
+				echo $session->userinfo['email'];
+			}else{
+				echo $form->value("email");
+			}
+			?>"><? echo $form->error("email"); ?></p>
+		<div class="clear"></div>
+		<p><input type="hidden" name="subedit" value="1">
+		<input type="submit" value="Edit Account"></p>
+	</form>
+</div>
+<?
+echo "[<a href=\"main.php\">Main</a>] ";
+echo "[<a href=\"userinfo.php?user=$session->username\">My Account</a>]&nbsp;";
 
-<?php 
 }
 }
 
 ?>
-
+</div>
 </body>
 </html>

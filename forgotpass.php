@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * ForgotPass.php
  *
@@ -14,16 +14,23 @@
  * your website.
  *
  * Written by: Jpmaster77 a.k.a. The Grandmaster of C++ (GMC)
- * Last Updated: August 26, 2004
+ * Last Updated: August 2, 2009 by Ivan Novak
  */
 include("include/session.php");
 ?>
 
 <html>
-<title>Jpmaster77's Login Script</title>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>Jpmaster77's Login Script</title>
+	<link rel="stylesheet" href="-css/960/reset.css" type="text/css" />
+	<link rel="stylesheet" href="-css/960/960.css" type="text/css" />
+	<link rel="stylesheet" href="-css/960/text.css" type="text/css" />	
+	<link rel="stylesheet" href="-css/style.css" type="text/css" />
+</head>
 <body>
-
-<?php
+<div id="main" class="container_12">
+<?
 /**
  * Forgot Password form has been submitted and no errors
  * were found with the form (the username is in the database)
@@ -64,16 +71,18 @@ else{
 A new password will be generated for you and sent to the email address<br>
 associated with your account, all you have to do is enter your
 username.<br><br>
-<?php echo $form->error("user"); ?>
+<? echo $form->error("user"); ?>
 <form action="process.php" method="POST">
-<b>Username:</b> <input type="text" name="user" maxlength="30" value="<?php echo $form->value("user"); ?>">
+<b>Username:</b> <input type="text" name="user" maxlength="30" value="<? echo $form->value("user"); ?>">
 <input type="hidden" name="subforgot" value="1">
 <input type="submit" value="Get New Password">
 </form>
 
-<?php
+<p><a href="main.php">[Back to Main]</a></p>
+
+<?
 }
 ?>
-
+</div>
 </body>
 </html>

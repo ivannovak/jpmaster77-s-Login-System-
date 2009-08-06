@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * AdminProcess.php
  * 
@@ -7,7 +7,7 @@
  * member system adjustments.
  *
  * Written by: Jpmaster77 a.k.a. The Grandmaster of C++ (GMC)
- * Last Updated: August 15, 2004
+ * Last Updated: August 2, 2009 by Ivan Novak
  */
 include("../include/session.php");
 

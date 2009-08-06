@@ -1,0 +1,42 @@
+/*
+Project Name: jpmater77's Login System
+Project URI: http://www.ivannovak.com/
+Project Origin: http://www.evolt.org/node/60384
+Description: This file provides the title and classes used throughout LS2v2.1
+Version: 1.0
+Author: Ivan Novak
+
+This is just a basic layout, with only the bare minimum defined.
+Please tweak this and make it your own. :)
+*/
+
+/*====Generic====*/
+.right{float: right;}
+.left{float: left;}
+.clear{clear: both;}
+.title{font-weight: bold;}
+
+/*= Found on all display pages =*/
+#main{ }
+
+/*= Found on Main.php =*/
+#login{ }
+#footer{ }
+
+/*= Found on register.php =*/
+#register{ }
+
+/*= Found on useredit.php =*/
+#userupdate{ }
+
+/*= Found on valid.php =*/
+#email{ }
+
+/*= Found on mail.php =*/
+#compose{ }
+#inbox{ }
+#single{ }
+
+/*= Found on admin.php =*/
+#display{ }
+.update{ }

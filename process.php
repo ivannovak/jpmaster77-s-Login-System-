@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Process.php
  * 
@@ -8,7 +8,7 @@
  * way. Also handles the logout procedure.
  *
  * Written by: Jpmaster77 a.k.a. The Grandmaster of C++ (GMC)
- * Last Updated: August 19, 2004
+ * Last Updated: August 2, 2009 by Ivan Novak
  */
 include("include/session.php");
 
@@ -99,7 +99,7 @@ class Process
          $_POST['user'] = strtolower($_POST['user']);
       }
       /* Registration attempt */
-      $retval = $session->register($_POST['user'], $_POST['pass'], $_POST['email']);
+      $retval = $session->register($_POST['user'], $_POST['pass'], $_POST['email'], $_POST['name']);
       
       /* Registration Successful */
       if($retval == 0){
@@ -181,7 +181,7 @@ class Process
    function procEditAccount(){
       global $session, $form;
       /* Account edit attempt */
-      $retval = $session->editAccount($_POST['curpass'], $_POST['newpass'], $_POST['email']);
+      $retval = $session->editAccount($_POST['curpass'], $_POST['newpass'], $_POST['email'], $_POST['name']);
 
       /* Account edit successful */
       if($retval){

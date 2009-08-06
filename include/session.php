@@ -1,4 +1,4 @@
-<?php
+<?
 /**
  * Session.php
  * 
@@ -6,7 +6,7 @@
  * track of logged in users and also guests.
  *
  * Written by: Jpmaster77 a.k.a. The Grandmaster of C++ (GMC)
- * Last Updated: August 19, 2004
+ * Last Updated: August 2, 2009 by Ivan Novak
  */
 include("database.php");
 include("mailer.php");
@@ -256,7 +256,7 @@ class Session
     * 1. If no errors were found, it registers the new user and
     * returns 0. Returns 2 if registration failed.
     */
-   function register($subuser, $subpass, $subemail){
+   function register($subuser, $subpass, $subemail, $subname){
       global $database, $form, $mailer;  //The database, form and mailer object
       
       /* Username error checking */
@@ -330,6 +330,14 @@ class Session
          $subemail = stripslashes($subemail);
       }
       
+      /* Name error checking */
+	  $field = "name";
+	  if(!$subname || strlen($subname = trim($subname)) == 0){
+	     $form->setError($field, "* Name not entered");
+	  } else {
+	     $subname = stripslashes($subname);
+	  }
+      
       $randid = $this->generateRandID();
       
       /* Errors exist, have user correct them */
@@ -338,7 +346,7 @@ class Session
       }
       /* No errors, add the new account to the */
       else{
-         if($database->addNewUser($subuser, md5($subpass), $subemail, $randid)){
+         if($database->addNewUser($subuser, md5($subpass), $subemail, $randid, $subname)){
             if(EMAIL_WELCOME){               
                $mailer->sendWelcome($subuser,$subemail,$subpass,$randid);
             }
@@ -356,7 +364,7 @@ class Session
     * format, the change is made. All other fields are changed
     * automatically.
     */
-   function editAccount($subcurpass, $subnewpass, $subemail){
+   function editAccount($subcurpass, $subnewpass, $subemail, $subname){
       global $database, $form;  //The database and form object
       /* New password entered */
       if($subnewpass){
@@ -410,6 +418,14 @@ class Session
          $subemail = stripslashes($subemail);
       }
       
+      /* Name error checking */
+	  $field = "name";
+	  if(!$subname || strlen($subname = trim($subname)) == 0){
+	     $form->setError($field, "* Name not entered");
+	  } else {
+	     $subname = stripslashes($subname);
+	  }
+      
       /* Errors exist, have user correct them */
       if($form->num_errors > 0){
          return false;  //Errors with form
@@ -425,6 +441,11 @@ class Session
          $database->updateUserField($this->username,"email",$subemail);
       }
       
+      /* Change Name */
+      if($subname){
+         $database->updateUserField($this->username,"name",$subname);
+      }
+      
       /* Success! */
       return true;
    }
@@ -436,6 +457,15 @@ class Session
    function isAdmin(){
       return ($this->userlevel == ADMIN_LEVEL ||
               $this->username  == ADMIN_NAME);
+   }
+   
+   /**
+    * isAuthor - Returns true if currently logged in user is
+    * an author or an administrator, false otherwise.
+    */
+   function isAuthor(){
+      return ($this->userlevel == AUTHOR_LEVEL ||
+              $this->userlevel == ADMIN_LEVEL);
    }
    
    /**

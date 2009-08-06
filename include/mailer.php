@@ -1,4 +1,4 @@
-<?php 
+<? 
 /**
  * Mailer.php
  *
@@ -11,7 +11,7 @@
  * <http://www.snapfiles.com/freeware/server/fwmailserver.html>
  *
  * Written by: Jpmaster77 a.k.a. The Grandmaster of C++ (GMC)
- * Last Updated: August 19, 2004
+ * Last Updated: August 2, 2009 by Ivan Novak
  */
  
 class Mailer
@@ -31,7 +31,7 @@ class Mailer
              ."Password: ".$pass."\n\n"
              ."Before you can login you need to activate your\n"
              ."account by clicking on this link:\n\n"
-             ."http://localhost:8888/ls2/valid.php?qs1=".$user."&qs2=".$userid."\n\n"
+             ."http://localhost:8888/jpsystem/LS2dev/valid.php?qs1=".$user."&qs2=".$userid."\n\n"
              ."If you ever lose or forget your password, a new "
              ."password will be generated for you and sent to this "
              ."email address, if you would like to change your "
@@ -58,7 +58,7 @@ class Mailer
                ."To activate your account you can either click on the\n"
                ."following link or copy the link and paste it into your\n"
                ."address bar.\n\n"
-               ."http://localhost:8888/ls2/valid.php?qs1=".$user."&qs2=".$userid."\n\n"
+               ."http://localhost:8888/jpsystem/LS2dev/valid.php?qs1=".$user."&qs2=".$userid."\n\n"
                ."We here at Jpmaster77's Site hope you continue to\n"
                ."enjoy our wonderful service.\n\n"
                ."Sincerely,\n\n"
