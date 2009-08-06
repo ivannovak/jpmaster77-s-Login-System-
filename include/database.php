@@ -123,6 +123,20 @@ class MySQLDB
       return (mysql_numrows($result) > 0);
    }
    
+   
+   /**
+    * emailTaken - Returns true if the email has
+    * been taken by another user, false otherwise.
+    */
+    function emailTaken($email){
+       if(!get_magic_quotes_gpc()){
+          $email = addslashes($email);
+       }
+       $q = "SELECT email FROM ".TBL_USERS." WHERE email = '$email'";
+       $result = mysql_query($q, $this->connection);
+       return (mysql_num_rows($result) > 0);
+    }
+    
    /**
     * usernameBanned - Returns true if the username has
     * been banned by the administrator.

@@ -327,6 +327,11 @@ class Session
          if(!eregi($regex,$subemail)){
             $form->setError($field, "* Email invalid");
          }
+         /* Check if email is already in use */
+         if($database->emailTaken($subemail)){
+            $form->setError($field, "* Email already in use");
+         }
+
          $subemail = stripslashes($subemail);
       }
       
