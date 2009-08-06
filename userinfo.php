@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * UserInfo.php
  *
@@ -23,7 +23,7 @@ $page = "userinfo.php";
 </head>
 <body>
 <div id="main" class="container_12">
-<?
+<?php
 /* Requested Username error checking */
 $req_user = trim($_GET['user']);
 if(!$req_user || strlen($req_user) == 0 ||
