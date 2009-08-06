@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Main.php
  *
@@ -29,7 +29,7 @@ $page = "main.php";
 <div id="main" class="container_12">
 
 
-<?
+<?php
 /**
  * User has already logged in, so display relavent links, including
  * a link to the admin center if the user is an administrator.
@@ -56,7 +56,7 @@ else{
 ?>
 <div id="login">
 <h1>Login</h1>
-<?
+<?php
 /**
  * User not logged in, display the login form.
  * If user has already tried to login, but errors were
@@ -69,8 +69,8 @@ if($form->num_errors > 0){
 ?>
 
 	<form action="process.php" method="POST">
-		<p class="grid_1">Username: </p><p class="left"><input type="text" name="user" maxlength="30" value="<? echo $form->value("user"); ?>"><? echo $form->error("user"); ?></p>
-		<p class="grid_1 clear">Password: </p><p class="left"><input type="password" name="pass" maxlength="30" value="<? echo $form->value("pass"); ?>"><? echo $form->error("pass"); ?></p>
+		<p class="grid_1">Username: </p><p class="left"><input type="text" name="user" maxlength="30" value="<?php echo $form->value("user"); ?>"><?php echo $form->error("user"); ?></p>
+		<p class="grid_1 clear">Password: </p><p class="left"><input type="password" name="pass" maxlength="30" value="<?php echo $form->value("pass"); ?>"><?php echo $form->error("pass"); ?></p>
 		<p class="clear">
 			<input type="checkbox" name="remember" <?php if($form->value("remember") != ""){ echo "checked"; } ?>>Remember me next time
 			<input type="hidden" name="sublogin" value="1">
@@ -78,14 +78,14 @@ if($form->num_errors > 0){
 		</p>
 		<p><br />[<a href="forgotpass.php">Forgot Password?</a>]</p>
 		<p>Not registered? <a href="register.php">Sign-Up!</a></p>
-		<?
+		<?php
 		if(EMAIL_WELCOME){
 			echo "<p>Do you need a Confirmation email? <a href='valid.php'>Send!</a></p>";
 		}
 		?>
 	</form>
 </div><!-- #login -->
-<?
+<?php
 }
 
 /**
