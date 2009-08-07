@@ -66,10 +66,13 @@
 		?>
 			<form action="mail.php" method='post'>
 				<div id="compose">
-					<p class="grid_1">To:</p><p class="grid_2"><input type='text' name='mailTo' size='20' value='<?php echo $mailTo; ?>'></p>
-					<p class="grid_1 clear">Subject:</p><p class="grid_2"><input type='text' name='mailSubject' size='20' value='<?php echo $mailSubject; ?>'></p>
-					<p class="grid_1 clear">Message:</p><p class="grid_4"><textarea rows='16' cols='45' name='mailMessage'></textarea></p>
-					<p class="grid_1 clear"><input type="submit" name="mailAction" value="Send" /></p>
+					<p class="textinput">To:</p><p class="grid_2"><input type='text' name='mailTo' size='20' value='<?php echo $mailTo; ?>'></p>
+					<div class="clear"></div>
+					<p class="textinput">Subject:</p><p class="grid_2"><input type='text' name='mailSubject' size='20' value='<?php echo $mailSubject; ?>'></p>
+					<div class="clear"></div>
+					<p class="textinput">Message:</p><p class="grid_4"><textarea rows='16' cols='45' name='mailMessage'></textarea></p>
+					<div class="clear"></div>
+					<p class="grid_1"><input type="submit" name="mailAction" value="Send" /></p>
 				</div>
 			</form>
 		<?php

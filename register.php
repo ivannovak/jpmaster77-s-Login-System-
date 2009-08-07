@@ -73,11 +73,11 @@ if($form->num_errors > 0){
 ?>
 <div id="register">
 	<form action="process.php" method="POST">
-		<p class="grid_1">Name: </p><p class="left"><input type="text" name="name" maxlength="30" value="<?php echo $form->value("name"); ?>"><?php echo $form->error("name"); ?></p>
-		<p class="grid_1 clear">Username: </p><p class="left"><input type="text" name="user" maxlength="30" value="<?php echo $form->value("user"); ?>"><?php echo $form->error("user"); ?></p>
-		<p class="grid_1 clear">Password: </p><p class="left"><input type="password" name="pass" maxlength="30" value="<?php echo $form->value("pass"); ?>"><?php echo $form->error("pass"); ?></p>
-		<p class="grid_1 clear">Email: </p><p class="left"><input type="text" name="email" maxlength="50" value="<?php echo $form->value("email"); ?>"><?php echo $form->error("email"); ?></p>
-		<p class="clear"><input type="hidden" name="subjoin" value="1"><input type="submit" value="Join!"></p>
+		<p class="textinput">Name: </p><p><input type="text" name="name" maxlength="30" value="<?php echo $form->value("name"); ?>"><?php echo $form->error("name"); ?></p>
+		<p class="textinput">Username: </p><p><input type="text" name="user" maxlength="30" value="<?php echo $form->value("user"); ?>"><?php echo $form->error("user"); ?></p>
+		<p class="textinput">Password: </p><p><input type="password" name="pass" maxlength="30" value="<?php echo $form->value("pass"); ?>"><?php echo $form->error("pass"); ?></p>
+		<p class="textinput">Email: </p><p><input type="text" name="email" maxlength="50" value="<?php echo $form->value("email"); ?>"><?php echo $form->error("email"); ?></p>
+		<p class="textinput"><input type="hidden" name="subjoin" value="1"><input type="submit" value="Join!"></p>
 		<p><a href="main.php">[Back to Main]</a></p>
 	</form>
 </div>

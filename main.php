@@ -69,9 +69,9 @@ if($form->num_errors > 0){
 ?>
 
 	<form action="process.php" method="POST">
-		<p class="grid_1">Username: </p><p class="left"><input type="text" name="user" maxlength="30" value="<?php echo $form->value("user"); ?>"><?php echo $form->error("user"); ?></p>
-		<p class="grid_1 clear">Password: </p><p class="left"><input type="password" name="pass" maxlength="30" value="<?php echo $form->value("pass"); ?>"><?php echo $form->error("pass"); ?></p>
-		<p class="clear">
+		<p class="textinput">Username: </p><p><input type="text" name="user" maxlength="30" value="<?php echo $form->value("user"); ?>"><?php echo $form->error("user"); ?></p>
+		<p class="textinput">Password: </p><p><input type="password" name="pass" maxlength="30" value="<?php echo $form->value("pass"); ?>"><?php echo $form->error("pass"); ?></p>
+		<p>
 			<input type="checkbox" name="remember" <?php if($form->value("remember") != ""){ echo "checked"; } ?>>Remember me next time
 			<input type="hidden" name="sublogin" value="1">
 			<input type="submit" value="Login">

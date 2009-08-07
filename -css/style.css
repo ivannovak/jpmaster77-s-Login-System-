@@ -10,6 +10,12 @@ This is just a basic layout, with only the bare minimum defined.
 Please tweak this and make it your own. :)
 */
 
+.textinput{
+	width: 75px;
+	margin: 0 10px;
+	float: left;
+}
+
 /*====Generic====*/
 .right{float: right;}
 .left{float: left;}

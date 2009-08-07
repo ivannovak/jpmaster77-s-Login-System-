@@ -5,14 +5,20 @@
 	Licensed under GPL and MIT.
 */
 
+body {
+	text-align: center;
+	margin: 0 auto;
+}
+
+
 /* `Containers
 ----------------------------------------------------------------------------------------------------*/
 
 .container_12,
 .container_16 {
-	margin-left: auto;
-	margin-right: auto;
 	width: 960px;
+	margin: 0 auto;
+	text-align: left;
 }
 
 /* `Grid >> Global
