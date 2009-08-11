@@ -27,7 +27,7 @@
 
 <div id="main" class="container_12">
 
-<?	
+<?php	
 	/* 
 	 * If the someone accesses this page without the correct variables
 	 * passed, assume they are want to fill out a form asking for a 
@@ -38,12 +38,12 @@
 			<div id="email">
 				<h1>Send Confirmation Email</h1>
 				<form action="process.php" method="POST">
-					<p>Username: <input type="text" name="user" maxlength="30" value="<? echo $form->value("user"); ?>"><? echo $form->error("user"); ?></p>
-					<p>Password: <input type="password" name="pass" maxlength="30" value="<? echo $form->value("pass"); ?>"><? echo $form->error("pass"); ?></p>
+					<p>Username: <input type="text" name="user" maxlength="30" value="<?php echo $form->value("user"); ?>"><?php echo $form->error("user"); ?></p>
+					<p>Password: <input type="password" name="pass" maxlength="30" value="<?php echo $form->value("pass"); ?>"><?php echo $form->error("pass"); ?></p>
 					<p><input type="hidden" name="subConfirm" value="1"><input type="submit" value="Send!"></p>
 					<p><a href="main.php">Back to Main</a></p>
 				</form>			</div>
-		<?
+		<?php
 	}
 
 	/* If the correct variables are passed, define and check them. */
