@@ -1,7 +1,13 @@
 Changes.txt
 ===========
 
-
+2.1.0
+    Added:      Deleted field to the mail table structure
+    Modified:   Mail deletion process to update the deleted field instead of removing the data
+    Modified:   Replaced eregi with preg_match
+    Modified:   Updated Database interaction processes to go through mysql_real_escape_string in an effort to prevent SQL injection
+    Modified:   Updated process to attempt to plug XSS vulnerability
+    
 
 2.0.4
 	Big Additions:

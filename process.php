@@ -61,6 +61,7 @@ class Process
    function procLogin(){
       global $session, $form;
       /* Login attempt */
+      $_POST = $session->cleanInput($_POST);
       $retval = $session->login($_POST['user'], $_POST['pass'], isset($_POST['remember']));
       
       /* Login successful */
@@ -94,6 +95,7 @@ class Process
     */
    function procRegister(){
       global $session, $form;
+      $_POST = $session->cleanInput($_POST);
       /* Convert username to all lowercase (by option) */
       if(ALL_LOWERCASE){
          $_POST['user'] = strtolower($_POST['user']);
@@ -128,6 +130,7 @@ class Process
     */
    function procForgotPass(){
       global $database, $session, $mailer, $form;
+      $_POST = $session->cleanInput($_POST);
       /* Username error checking */
       $subuser = $_POST['user'];
       $field = "user";  //Use field name for username
@@ -138,7 +141,7 @@ class Process
          /* Make sure username is in database */
          $subuser = stripslashes($subuser);
          if(strlen($subuser) < 5 || strlen($subuser) > 30 ||
-            !eregi("^([0-9a-z])+$", $subuser) ||
+            !preg_match("^([0-9a-z])+$", $subuser) ||
             (!$database->usernameTaken($subuser))){
             $form->setError($field, "* Username does not exist<br>");
          }
@@ -180,6 +183,7 @@ class Process
     */
    function procEditAccount(){
       global $session, $form;
+      $_POST = $session->cleanInput($_POST);
       /* Account edit attempt */
       $retval = $session->editAccount($_POST['curpass'], $_POST['newpass'], $_POST['email'], $_POST['name']);
 
@@ -203,6 +207,7 @@ class Process
    	*/
    function procSendConfirm(){
        global $session, $form, $database, $mailer;
+       $_POST = $session->cleanInput($_POST);
        
        $user	=	$_POST['user'];
        $pass	=	$_POST['pass'];

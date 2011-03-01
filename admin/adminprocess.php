@@ -177,7 +177,7 @@ class AdminProcess
          /* Make sure username is in database */
          $subuser = stripslashes($subuser);
          if(strlen($subuser) < 5 || strlen($subuser) > 30 ||
-            !eregi("^([0-9a-z])+$", $subuser) ||
+            !preg_match("^([0-9a-z])+$", $subuser) ||
             (!$ban && !$database->usernameTaken($subuser))){
             $form->setError($field, "* Username does not exist<br>");
          }

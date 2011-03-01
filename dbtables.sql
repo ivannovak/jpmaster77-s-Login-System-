@@ -68,6 +68,7 @@ CREATE TABLE `banned_users` (
 --
 
 CREATE TABLE `mail` (
+  `Deleted` tinyint(1) NOT NULL default '0',
   `UserTo` tinytext NOT NULL,
   `UserFrom` tinytext NOT NULL,
   `Subject` mediumtext NOT NULL,

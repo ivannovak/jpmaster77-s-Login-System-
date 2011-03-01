@@ -17,6 +17,10 @@
 		header("Location: ".$session->referrer);
 	}
 	
+	if($_POST){
+	   $_POST = $session->cleanInput($_POST);
+	}
+	
 //	$result1=$database->query("SELECT * FROM ".TBL_USERS." WHERE username='$username'") or die(mysql_error());
 //	$row100 = mysql_fetch_array($result1);
 
@@ -101,8 +105,11 @@
 		
 		$date = date('m/d/Y')." at ".date('g:i.s')." ".date('a');
 		
-		$q	= "INSERT INTO mail (UserTo, UserFrom, Subject, Message, SentDate, status) 
-						VALUES ('$mailTo','$session->username','$subject','$message','$date','unread')";
+		$q = sprintf("INSERT INTO mail (UserTo, UserFrom, Subject, Message, SentDate, status) VALUES ('%s','$session->username','%s','%s','%s','unread')", 
+               mysql_real_escape_string($mailTo),
+               mysql_real_escape_string($subject),
+               mysql_real_escape_string($message),
+               mysql_real_escape_string($date));
 		if(!($send = $database->query($q))){
 			echo "A letter could not be sent to ".$mailTo."!";
 		} else {
@@ -115,7 +122,8 @@
 	if($action == "Inbox") {
 	
 		$user = $session->username;
-		$q = "SELECT * FROM mail WHERE UserTo = '$user' ORDER BY SentDate DESC";
+		$q = sprintf("SELECT * FROM mail WHERE UserTo = '%s' ORDER BY SentDate DESC",
+		      mysql_real_escape_string($user));
 		$getMail = $database->query($q) or die(mysql_error());
 
 		echo "<div id='inbox'>";
@@ -161,7 +169,10 @@
 		
 		$mail_id = $_POST['mail_id'];
 		$user = $session->username;
-		$result = $database->query("SELECT * FROM mail WHERE UserTo = '$user' AND mail_id = '$mail_id'") or die ("cant do it");
+		$q = sprintf("SELECT * FROM mail WHERE UserTo = '%s' AND mail_id = '%s'",
+		      mysql_real_escape_string($user),
+		      mysql_real_escape_string($mail_id));
+		$result = $database->query($q) or die (mysql_error());
 		$row = mysql_fetch_array($result);
 		
 		
@@ -169,7 +180,6 @@
 			echo "<font face=verdana><b>This isn't your mail!";
 			exit;
 		}
-		
 		$q = "UPDATE mail SET status='read' WHERE UserTo='$session->username' AND mail_id='$row[mail_id]'";
 		$database->query($q) or die("An error occurred resulting that this message has not been marked read.");
 		
@@ -188,7 +198,8 @@
 	
 	if($action == 'Delete') {
 		$id = $_POST['mail_id'];
-		$query = $database->query("DELETE FROM mail WHERE mail_id='$id' LIMIT 1");
+		$query = sprintf("UPDATE mail SET 'Deleted' = 1 WHERE mail_id='%s' LIMIT 1",
+		            mysql_real_escape_string($id));
 		
 		if(!$query) {
 			echo "The message wasn\'t deleted";

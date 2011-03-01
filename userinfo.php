@@ -27,7 +27,7 @@ $page = "userinfo.php";
 /* Requested Username error checking */
 $req_user = trim($_GET['user']);
 if(!$req_user || strlen($req_user) == 0 ||
-   !eregi("^([0-9a-z])+$", $req_user) ||
+   !preg_match("^([0-9a-z])+$", $req_user) ||
    !$database->usernameTaken($req_user)){
    die("Username not registered");
 }
