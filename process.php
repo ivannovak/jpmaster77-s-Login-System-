@@ -8,7 +8,7 @@
  * way. Also handles the logout procedure.
  *
  * Written by: Jpmaster77 a.k.a. The Grandmaster of C++ (GMC)
- * Last Updated: August 2, 2009 by Ivan Novak
+ * Last Updated: June 15, 2011 by Ivan Novak
  */
 include("include/session.php");
 
@@ -35,6 +35,9 @@ class Process
       }
       else if(isset($_POST['subConfirm'])){
       	$this->procSendConfirm();
+      }
+      else if(isset($_POST['login_with_hash'])){
+      	$this->procHashLogin($_POST['hash']);
       }
       /**
        * The only other reason user should be directed here
@@ -141,7 +144,7 @@ class Process
          /* Make sure username is in database */
          $subuser = stripslashes($subuser);
          if(strlen($subuser) < 5 || strlen($subuser) > 30 ||
-            !preg_match("^([0-9a-z])+$", $subuser) ||
+            !ctype_alnum($subuser) ||
             (!$database->usernameTaken($subuser))){
             $form->setError($field, "* Username does not exist<br>");
          }
@@ -256,6 +259,28 @@ class Process
 	      	  echo "Your confirmation email has been sent! Back to <a href='main.php'>Main</a>";
 	      }
 	  }
+   }
+   
+   function procHashLogin($hash){
+   		global $session, $database;
+   		$user_info = $database->getUserInfoFromHash(substr($hash,1));
+   		
+   		if($user_info['hash_generated'] < (time() - (60*60*24*3))){
+   			// if the hash was generated more than 3 days ago, the hash is invalid.
+   			// let's invalidate and refuse the hash.
+   			$database->updateUserField($this->userinfo['username'], 'hash', $this->generateRandID());
+	        $database->updateUserField($this->userinfo['username'], 'hash_generated', time());
+	        return false;
+   		}
+   		
+   		if($user_info['username'] && $user_info['userid']){  
+   			$_SESSION['username'] = $user_info['username'];
+	   		$_SESSION['userid'] = $user_info['userid'];
+	   		$session->checkLogin();
+	   		return true;
+	   	} else {
+	   		return false;
+	   	}
    }
 };
 

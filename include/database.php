@@ -6,7 +6,7 @@
  * information from the website's database.
  *
  * Written by: Jpmaster77 a.k.a. The Grandmaster of C++ (GMC)
- * Last Updated: August 17, 2004
+ * Last Updated: June 15, 2011 by Ivan Novak
  */
 include("constants.php");
       
@@ -206,6 +206,17 @@ class MySQLDB
       /* Return result array */
       $dbarray = mysql_fetch_array($result);
       return $dbarray;
+   }
+   
+   function getUserInfoFromHash($hash){
+   		$q = sprintf("SELECT * FROM ".TBL_USERS." WHERE hash = '%s'",
+   				mysql_real_escape_string($hash));
+   		$result = mysql_query($q, $this->connection);
+   		if(!$result || (mysql_num_rows($result) < 1)){
+   			return NULL;
+   		}
+   		$dbarray = mysql_fetch_array($result);
+   		return $dbarray;
    }
    
    /**

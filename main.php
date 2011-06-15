@@ -9,7 +9,7 @@
  * the user has logged in or not.
  *
  * Written by: Jpmaster77 a.k.a. The Grandmaster of C++ (GMC)
- * Last Updated: August 2, 2009 by Ivan Novak
+ * Last Updated: June 15, 2011 by Ivan Novak
  */
 include("include/session.php");
 $page = "main.php";
@@ -23,6 +23,27 @@ $page = "main.php";
 	<link rel="stylesheet" href="-css/960/960.css" type="text/css" />
 	<link rel="stylesheet" href="-css/960/text.css" type="text/css" />	
 	<link rel="stylesheet" href="-css/style.css" type="text/css" />
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		jQuery(function($){
+			jp_hash = window.location.hash;
+			if(jp_hash){
+				$.ajax({
+					type: "POST",
+					url: 'process.php',
+					data: 'login_with_hash=1&hash='+jp_hash,
+					success: function(msg){
+						if(msg){
+							alert("Login Successful");
+							window.location.href = "main.php";
+						} else {
+							alert("Invalid Hash");
+						}
+					}
+				});
+			}
+		});
+	</script>
 </head>
 <body>
 
@@ -54,7 +75,8 @@ if($session->logged_in){
 }
 else{
 ?>
-<div id="login">
+
+<div id="login">
 <h1>Login</h1>
 <?php
 /**
@@ -109,4 +131,3 @@ if($form->num_errors > 0){
 
 </body>
 </html>
-	

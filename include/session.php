@@ -6,7 +6,7 @@
  * track of logged in users and also guests.
  *
  * Written by: Jpmaster77 a.k.a. The Grandmaster of C++ (GMC)
- * Last Updated: August 2, 2009 by Ivan Novak
+ * Last Updated: June 15, 2011 by Ivan Novak
  */
 include("database.php");
 include("mailer.php");
@@ -108,6 +108,14 @@ class Session
          $this->username  = $this->userinfo['username'];
          $this->userid    = $this->userinfo['userid'];
          $this->userlevel = $this->userinfo['userlevel'];
+         
+         /* auto login hash expires in three days */
+         if($this->userinfo['hash_generated'] < (time() - (60*60*24*3))){
+         	/* Update the hash */
+	         $database->updateUserField($this->userinfo['username'], 'hash', $this->generateRandID());
+	         $database->updateUserField($this->userinfo['username'], 'hash_generated', time());
+         }
+         
          return true;
       }
       /* User not logged in */
@@ -136,7 +144,7 @@ class Session
       }
       else{
          /* Check if username is not alphanumeric */
-         if(!preg_match("^([0-9a-z])*$", $subuser)){
+         if(!ctype_alnum($subuser)){
             $form->setError($field, "* Username not alphanumeric");
          }
       }	  
@@ -257,6 +265,7 @@ class Session
     * returns 0. Returns 2 if registration failed.
     */
    function register($subuser, $subpass, $subemail, $subname){
+   
       global $database, $form, $mailer;  //The database, form and mailer object
       
       /* Username error checking */
@@ -274,7 +283,7 @@ class Session
             $form->setError($field, "* Username above 30 characters");
          }
          /* Check if username is not alphanumeric */
-         else if(!preg_match("^([0-9a-z])+$", $subuser)){
+         else if(!ctype_alnum($subuser)){
             $form->setError($field, "* Username not alphanumeric");
          }
          /* Check if username is reserved */
@@ -303,7 +312,7 @@ class Session
             $form->setError($field, "* Password too short");
          }
          /* Check if password is not alphanumeric */
-         else if(!preg_match("^([0-9a-z])+$", ($subpass = trim($subpass)))){
+         else if(!ctype_alnum(($subpass = trim($subpass)))){
             $form->setError($field, "* Password not alphanumeric");
          }
          /**
@@ -321,10 +330,7 @@ class Session
       }
       else{
          /* Check if valid email address */
-         $regex = "^[_+a-z0-9-]+(\.[_+a-z0-9-]+)*"
-                 ."@[a-z0-9-]+(\.[a-z0-9-]{1,})*"
-                 ."\.([a-z]{2,}){1}$";
-         if(!preg_match($regex,$subemail)){
+         if(filter_var($subemail, FILTER_VALIDATE_EMAIL) == FALSE){
             $form->setError($field, "* Email invalid");
          }
          /* Check if email is already in use */
