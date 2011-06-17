@@ -26,7 +26,14 @@ $page = "main.php";
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		jQuery(function($){
-			jp_hash = window.location.hash;
+			<?php
+			if(isset($_GET['hash'])){
+				$hash = $_GET['hash'];
+			} else {
+				$hash = '';
+			}
+			?>
+			jp_hash = ('<?php echo $hash; ?>'.length)?'<?php echo $hash; ?>':window.location.hash;
 			if(jp_hash){
 				$.ajax({
 					type: "POST",
@@ -34,7 +41,7 @@ $page = "main.php";
 					data: 'login_with_hash=1&hash='+jp_hash,
 					success: function(msg){
 						if(msg){
-							alert("Login Successful");
+							alert(msg);
 							window.location.href = "main.php";
 						} else {
 							alert("Invalid Hash");

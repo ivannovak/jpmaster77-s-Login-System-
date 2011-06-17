@@ -263,13 +263,17 @@ class Process
    
    function procHashLogin($hash){
    		global $session, $database;
-   		$user_info = $database->getUserInfoFromHash(substr($hash,1));
+   		if(substr($hash,0,1) === "#"){
+   			$hash = substr($hash,1);
+   		}
    		
+   		$user_info = $database->getUserInfoFromHash($hash);
+		
    		if($user_info['hash_generated'] < (time() - (60*60*24*3))){
    			// if the hash was generated more than 3 days ago, the hash is invalid.
    			// let's invalidate and refuse the hash.
-   			$database->updateUserField($this->userinfo['username'], 'hash', $this->generateRandID());
-	        $database->updateUserField($this->userinfo['username'], 'hash_generated', time());
+   			$database->updateUserField($user_info['username'], 'hash', $session->generateRandID());
+	        $database->updateUserField($user_info['username'], 'hash_generated', time());
 	        return false;
    		}
    		
@@ -277,9 +281,9 @@ class Process
    			$_SESSION['username'] = $user_info['username'];
 	   		$_SESSION['userid'] = $user_info['userid'];
 	   		$session->checkLogin();
-	   		return true;
+	   		die("Logging In...");
 	   	} else {
-	   		return false;
+	   		die();
 	   	}
    }
 };
