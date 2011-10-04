@@ -168,7 +168,7 @@ class MySQLDB
       }else{
          $ulevel = USER_LEVEL;
       }
-      $q = sprintf("INSERT INTO ".TBL_USERS." VALUES ('%s', '%s', '%s', '%s', '%s', $time, '0', '%s')",
+       $q = sprintf("INSERT INTO ".TBL_USERS." VALUES ('%s', '%s', '%s', '%s', '%s', $time, '0', '%s', '0', '0')",
             mysql_real_escape_string($username),
             mysql_real_escape_string($password),
             mysql_real_escape_string($userid),
