@@ -58,30 +58,46 @@ if($form->num_errors > 0){
 ?>
 <div id="userupdate">
 	<form action="process.php" method="POST">
-		<p class="grid_2">Name: </p><p class="left"><input class="left" type="text" name="name" maxlength="50" value="
-			<?php
+		<p class="grid_2">Name: </p>
+		<p class="left">
+			<input class="left" type="text" name="name" maxlength="50" value="<?php
 			if($form->value("name") == ""){
 				echo $session->userinfo['name'];
 			}else{
 				echo $form->value("name");
 			}
-			?>"><?php echo $form->error("name"); ?></p>
+			?>">
+			<?php echo $form->error("name"); ?>
+		</p>
 		<div class="clear"></div>
-		<p class="grid_2">Current Password: </p><p class="left"><input type="password" name="curpass" maxlength="30" value="<?php echo $form->value("curpass"); ?>"><?php echo $form->error("curpass"); ?></p>
+		<p class="grid_2">Current Password: </p>
+		<p class="left">
+			<input type="password" name="curpass" maxlength="30" value="<?php echo $form->value("curpass"); ?>">
+			<?php echo $form->error("curpass"); ?>
+		</p>
 		<div class="clear"></div>
-		<p class="grid_2">New Password: </p><p class="left"><input class="left" type="password" name="newpass" maxlength="30" value="<?php echo $form->value("newpass"); ?>"><?php echo $form->error("newpass"); ?></p>
+		<p class="grid_2">New Password: </p>
+		<p class="left">
+			<input class="left" type="password" name="newpass" maxlength="30" value="<?php echo $form->value("newpass"); ?>">
+			<?php echo $form->error("newpass"); ?>
+		</p>
 		<div class="clear"></div>
-		<p class="grid_2">Email: </p><p class="left"><input class="left" type="text" name="email" maxlength="50" value="
-			<?php
+		<p class="grid_2">Email: </p>
+		<p class="left">
+			<input class="left" type="text" name="email" maxlength="50" value="<?php
 			if($form->value("email") == ""){
 				echo $session->userinfo['email'];
 			}else{
 				echo $form->value("email");
 			}
-			?>"><?php echo $form->error("email"); ?></p>
+			?>">
+			<?php echo $form->error("email"); ?>
+		</p>
 		<div class="clear"></div>
-		<p><input type="hidden" name="subedit" value="1">
-		<input type="submit" value="Edit Account"></p>
+		<p>
+			<input type="hidden" name="subedit" value="1" />
+			<input type="submit" value="Edit Account" />
+		</p>
 	</form>
 </div>
 <?php

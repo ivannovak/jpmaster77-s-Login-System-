@@ -420,10 +420,7 @@ class Session
       $field = "email";  //Use field name for email
       if($subemail && strlen($subemail = trim($subemail)) > 0){
          /* Check if valid email address */
-         $regex = "^[_+a-z0-9-]+(\.[_+a-z0-9-]+)*"
-                 ."@[a-z0-9-]+(\.[a-z0-9-]{1,})*"
-                 ."\.([a-z]{2,}){1}$";
-         if(!preg_match($regex,$subemail)){
+         if(filter_var($subemail, FILTER_VALIDATE_EMAIL) == FALSE){
             $form->setError($field, "* Email invalid");
          }
          $subemail = stripslashes($subemail);
@@ -510,7 +507,7 @@ class Session
    
    function cleanInput($post = array()) {
        foreach($post as $k => $v){
-            $post[$k] = htmlspecialchars($v);
+            $post[$k] = trim(htmlspecialchars($v));
          }
          return $post;
    }
